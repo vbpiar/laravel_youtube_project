@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('youtube_token');
+            $table->dateTime('last_upload');
             $table->rememberToken();
             $table->timestamps();
         });
