@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Rules\YoutubeToken;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -53,7 +54,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'youtube_token' => new YoutubeToken(),
+            'youtube_token' =>['required', 'string', 'min:8', new YoutubeToken()],
         ]);
     }
 
@@ -65,11 +66,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = (new User);
+       $out =  $user->create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'youtube_token' => $data['youtube_token'],
             'password' => Hash::make($data['password']),
         ]);
+       $out->channel()->create([
+             'youtube_token' =>$data['youtube_token']
+         ]);
+//        Auth::login($user);
+
+         return $user;
     }
 }
