@@ -178,6 +178,8 @@ return [
 
         Alaouy\Youtube\YoutubeServiceProvider::class,
 
+        App\Providers\VideoYoutubeServiceProvider::class,
+
 
     ],
 
@@ -230,6 +232,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
+        'YoutubeExtractor' => App\Facades\YoutubeExtractor::class,
 
     ],
 
