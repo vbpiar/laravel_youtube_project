@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use App\Channel;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','youtube_token',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -37,8 +37,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function Video()
+
+    public function channel()
     {
-        return $this->hasMany('App\Video');
+        return $this->hasOne('App\Channel');
     }
+
+
 }
